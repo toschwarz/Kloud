@@ -3,9 +3,3 @@
 ################################################################################
 
 /.vs
-/kloud.test/obj
-/kloud.test/bin/Debug/netcoreapp2.0
-/kloud.web/.vs
-/kloud.web/bin/Debug/netcoreapp2.0
-/kloud.web/obj
-/kloud.web/appsettings.Production.json
