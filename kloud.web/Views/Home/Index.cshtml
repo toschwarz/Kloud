@@ -1,0 +1,54 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        Test Data from API
+    </div>   <!--en dof panel-heading -->
+    <div class="panel-body" id="output">
+        <strong>Loading...</strong>
+    </div> <!--end of Panel-body -->
+</div> <!--end of Panel -->
+
+
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            $.ajax({
+                type: "GET",
+                url: "/api/CarOwnerAPI",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (data) {
+                    //alert(JSON.stringify(data));
+                    $("#output").html('');
+                    var DIV = '';
+                    $.each(data, function (i, item) {
+                        var headings = "<strong>" +
+                            item.brand +
+                            "</strong><ul id='owners'>";
+                        $.each(item.owners, function (j, owner) {
+                            if (owner.name && owner.name != "") { headings += "<li>" + owner.name + "</li>"; }
+                        });
+                        headings += "</ul>";
+                        $('#output').append(headings);
+                    }); //End of foreach Loop
+                    console.log(data);
+                }, //End of AJAX Success function
+
+                failure: function (data) {
+                    //alert(data.responseText);
+                    alert("Failure to retrieve from API.");
+                    $("#output").html('');
+                }, //End of AJAX failure function
+                error: function (data) {
+                    //alert(data.responseText);
+                    alert("Failure to retrieve from API.");
+                    $("#output").html('');
+                } //End of AJAX error function
+
+            });
+        });
+    </script>  
+    }

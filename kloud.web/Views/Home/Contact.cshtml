@@ -1,0 +1,19 @@
+﻿@using kloud.web.Models
+
+@{
+    ViewData["Title"] = "Contact";
+    ViewData["Messsage"] = "Contact Information";
+}
+<h2>@ViewData["Title"]</h2>
+<h3>@ViewData["Message"]</h3>
+
+@{
+    var ContactInfo = (Contact)ViewData["ContactInfo"];
+}
+
+<address>
+    <b>Name: </b>@ContactInfo.Name<br />
+    <b>Phone: </b>@ContactInfo.Phone<br />
+    <b>Email: </b>@ContactInfo.Email
+
+</address>
