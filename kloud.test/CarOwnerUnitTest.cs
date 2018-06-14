@@ -6,9 +6,9 @@ using FluentAssertions.Json;
 using System.Collections.Generic;
 using kloud.web.Services;
 using kloud.web.Models;
-using Microsoft.Extensions.Configuration;
-using Newtonsoft.Json;
 using kloud.web.Controllers;
+using kloud.test.Services;
+using Newtonsoft.Json;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 
@@ -16,29 +16,7 @@ namespace kloud.test
 {
     public class CarOwnerUnitTest
     {
-        public static IConfigurationRoot GetIConfigurationRoot(string outputPath)
-        {
-            return new ConfigurationBuilder()
-                .SetBasePath(outputPath)
-                .AddJsonFile("appsettings.Development.json", optional: true)
-                .AddEnvironmentVariables()
-                .Build();
-        }
-
-        public static AppSettings GetApplicationConfiguration(string outputPath)
-        {
-            var configuration = new AppSettings();
-
-            var iConfig = GetIConfigurationRoot(outputPath);
-
-            iConfig
-                .GetSection("ApplicationSettings")
-                .Bind(configuration);
-
-            return configuration;
-        }
-
-        private AppSettings configuration = GetApplicationConfiguration(AppContext.BaseDirectory);
+        private AppSettings configuration = AppSettingsHelper.GetApplicationConfiguration(AppContext.BaseDirectory);
 
         [Fact]
         public async Task TestOwnersAPI()
@@ -77,8 +55,7 @@ namespace kloud.test
         public async Task RepeaterTest()
         {
             //Arrange
-            MockCarOwnerService mockservice = new MockCarOwnerService(configuration);
-            var controller = new RepeaterAPIController(mockservice);
+            var controller = new RepeaterAPIController();
 
             //Act
             var output = await controller.RepeaterAPI();
@@ -88,7 +65,7 @@ namespace kloud.test
             var resultString = result.Value.Should().BeOfType<String>().Subject;
             var owners = JsonConvert.DeserializeObject<IEnumerable<Owner>>(resultString);
 
-            owners.Should().HaveCount(2);  // Should have 2 items from the mocked API
+            owners.Should().HaveCount(10);  // Should have 10 items from the API call
         }
 
         [Fact]

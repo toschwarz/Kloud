@@ -67,8 +67,13 @@ namespace kloud.test
                 }
             };
 
-            var json = JsonConvert.SerializeObject(owners);
-            return json;
+            var task = await Task.Run<String>(() =>
+            {
+                var json = JsonConvert.SerializeObject(owners);
+                return json;
+            });
+
+            return task;
         }
     }
 }

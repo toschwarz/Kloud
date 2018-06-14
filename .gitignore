@@ -3,3 +3,8 @@
 ################################################################################
 
 /.vs
+/kloud.test/bin/Debug/netcoreapp2.0
+/kloud.test/obj
+/kloud.web/.vs
+/kloud.web/bin/Debug/netcoreapp2.0
+/kloud.web/obj
