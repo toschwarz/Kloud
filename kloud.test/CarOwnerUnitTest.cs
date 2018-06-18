@@ -16,7 +16,7 @@ namespace kloud.test
 {
     public class CarOwnerUnitTest
     {
-        private AppSettings configuration = AppSettingsHelper.GetApplicationConfiguration(AppContext.BaseDirectory);
+        private readonly AppSettings configuration = AppSettingsHelper.GetApplicationConfiguration(AppContext.BaseDirectory);
 
         [Fact]
         public async Task TestOwnersAPI()
